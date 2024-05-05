@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAF3LINK </title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            background-color: #37517e;
+            padding: 10px; 
+            padding-left: 5px;
+            padding-right: 5px;
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            font-size: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #47b2e4;
+        }
+
+        nav a.active {
+            color: #47b2e4;
+        }
+
+        section#home {
+            background-color: #37517e;
+            height:65vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            color: white;
+            padding-left: 10%;
+            padding-top: 5%;
+        }
+
+        section#home h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        section#home p {
+            padding-top: 15px;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        section#home button {
+            background-color: #47b2e4;
+            color: white;
+            padding: 15px 20px;
+            font-size: 1em;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        section#home button:hover {
+            background-color: #255580;
+        }   
+        
+        section#home img {
+            padding-right: 10px;
+            width: 400px;
+            height: 400px;
+            animation: moveUpDown 4s infinite alternate ease-in-out;
+        }
+
+        footer {
+            background-color: #37517e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        @keyframes moveUpDown {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(20px);
+            }
+        }
+        .image-grid{padding-left:15%;}
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            font-family: "Open Sans", sans-serif;
+            color: #444444;
+            padding-left: 56px;
+            padding-right: 56px;
+            padding-top: 15px;
+            padding-bottom: 45px;
+        }
+
+        .section-grid{            
+            display: flex;
+            
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            background-color: #f3f5fa;
+   
+            font-family: "Open Sans", sans-serif;
+            color: #444444;
+            padding: 40px;
+        } 
+
+   
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .section-content h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .section-content p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .about-content {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .about a {
+            background-color: #fff;
+            color: #37517e;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 56px;
+            transition: background-color 0.3s ease;
+        }
+        .about-part{
+            background: #f3f5fa;
+            box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);  
+            padding: 50px 30px;
+            transition: all ease-in-out 0.4s;
+    
+            }
+       .about-content {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .about a {
+            background-color: #fff;
+            color: #37517e;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 56px;
+            transition: background-color 0.3s ease;
+        }
+        .about-part{
+            background: #f3f5fa;
+            box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);  
+            padding: 50px 30px;
+            transition: all ease-in-out 0.4s;
+    
+            }
+            .team-content {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+    
+            .team h2 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+    
+            .team p {
+                font-size: 1.1em;
+                margin-bottom: 20px;
+            }
+    
+            .team a {
+                background-color: #fff;
+                color: #37517e;
+                padding: 12px 20px;
+                text-decoration: none;
+                border-radius: 56px;
+                transition: background-color 0.3s ease;
+            }
+            .team-part{
+                background: #f3f5fa;
+                box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);  
+                padding: 7px 30px;
+                transition: all ease-in-out 0.4s;
+                }
+                .team-grid{
+                    display: grid;
+            
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 20px;
+                    background-color: #fff;
+           
+                    font-family: "Open Sans", sans-serif;
+                    color: #444444;
+                    padding: 40px;
+                }
+        .about a:hover {
+            background-color: #47b2e4;
+            color: #fff;
+        }
+        .section-title{
+            display: flex;
+            padding-top: 2%;
+            justify-content: center;
+            flex-wrap: wrap;
+            color:#37517e ;
+            font-size:40px;
+            font-weight: 700;
+            padding-bottom: 20px;
+        }
+        .service-innertitle{color:#37517e;
+            font-weight: 700;   
+            font-size:20px;
+        }
+    .btn-learn-more{
+            border: 2px solid #47b2e4;
+            color: #47b2e4;
+            border-radius: 56px;
+        }
+    section#services {
+            background-color: #f3f5fa;
+            padding: 20px 0;
+            color: #37517e;     
+            max-height: max-content;
+            padding: 20px;
+         
+            
+        }
+    .service-part{
+        background: #fff;
+        box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.2);  
+        padding: 50px 30px;
+        transition: all ease-in-out 0.4s;
+        border-radius:10px; 
+        min-width: 325px;
+             
+
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .button {
+            text-align: center;
+            padding: 18px 20px;
+            font-size: 16px;
+            background-color: #47b2e4;
+            color: #fff;
+            border: none;
+            border-radius: 56px;
+            cursor: pointer;
+        }
+        .section-content p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: justify;
+        }   
+
+        .button:hover {
+            background-color: #37517e;
+        }
+        .team-detail{ display:flex; justify-content: space-evenly;}
+        .team-member-name{
+            padding:20px;Font-size :30px; font-weight: 700;}
+        .team-member-post{font-size :20px;font-weight: 600;border-bottom: #37517e 1PX solid;}
+    </style>
+</head>
+<body>
+    <header id="mainHeader">
+        <div>
+            <!-- Your logo goes here, you can replace the text with an image tag -->
+            <span><h1>SAF3LINK</h1></span>
+        </div>
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#services">Services</a>
+            <a href="#team">Team</a>
+            <!-- <a href="#login">Login</a> -->
+        </nav>
+        <div>
+            <!-- Your logo goes here, you can replace the text with an image tag -->
+           <span><a href="{% url 'login' %}"><img src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="#" height="50px"></a></span> 
+        </div>
+    </header>
+
+    <section id="home">
+        <div>
+            <h1>Search Safe</h1>
+            <p>Safe Link ensures a secure browsing experience, protecting your online searches from potential threats...</p>
+           <a href="#services" class="button"><button class="btn">Get-started</button></a>
+        </div>
+        
+        <div class="image-grid">
+            <img  src="https://plugins.miniorange.com/wp-content/uploads/2021/09/imageedit_39_6561019352-1.webp"  alt="Moving Image">
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="section-title">
+        About Us
+         </div>
+        <div class="about-grid">
+            <div class="about-content">
+                <div class="about-part">
+                <p>
+                   Safe Link offers a comprehensive suite of services aimed at enhancing your online safety. Our domain listing feature provides a curated and secure browsing experience by filtering out potentially harmful websites. Additionally, our state-of-the-art phishing detection technology acts as a vigilant guardian, identifying and thwarting phishing attempts in real-time. With Safe Link, you can confidently explore the internet, assured that our advanced services are working tirelessly to protect you from malicious domains and phishing threats,    
+                </p>
+            </div>
+            </div>
+            
+        
+            <div class="about-content"> <div class="about-part">
+                <p>
+                    you from malicious domains and phishing threats, ensuring a secure online environment for your browsing activities. At Safe Link, we prioritize user privacy. Our commitment is reflected in the implementation of robust encryption protocols. This ensures that the communication between users' devices and our servers remains secure, safeguarding personal information from potential unauthorized access. With Safe Link, users can explore the internet freely, knowing that their privacy is our utmost priority.
+                </p>
+                <!-- <a href="https://en.wikipedia.org/wiki/Phishing" class="btn-learn-more">Learn More</a> -->
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-title">Services</div>
+        <div class="section-grid"> 
+            <div class="section-content">
+                <div class="service-part">
+                <div class="service-icon"> <img src="https://cdn0.iconfinder.com/data/icons/computer-219/24/Hyperlink_Chain_Connective_Link_Unite_Url-11-64.png "  width="60px" >
+                </div>
+                <div class="service-innertitle"><h1>Link Enumeration</h1></div>
+                
+                <p>Safe Link curates a meticulous database of verified and secure domains. We understand the importance of a safe browsing experience, which is why our platform constantly updates the domain listing to exclude potentially harmful websites. Our users can trust Safe Link to provide a secure environment, shielding them from the risks associated with malicious domains,and hereuser can also list all the subdomain of .onion urls and also amy sort of url they want.</p>
+
+                <div class="button-container">
+                    <!-- Button for subdomain link -->
+                    <form action="/subdomain-check" method="post">
+                        <button class="button" type="submit">TRY NOW</button>
+                    </form>
+            
+                    <!-- Button for phishing checking link
+                    <form action="/phishing-check" method="post">
+                        <button class="button" type="submit">Phishing Check</button>
+                    </form> -->
+                </div>
+            </div>
+            </div>
+            <div class="section-content">
+                <div class="service-part">
+                <div class="service-icon"> <img src="https://cdn0.iconfinder.com/data/icons/security-awareness/64/sq455_see_results_analytics_statistics_reporting_stats_phishing_computer-256.png "  width="60px" >
+                </div>
+                <div class="service-innertitle"><h1>Phishing Detection</h1></div>
+                
+                <p>
+                In the ever-evolving landscape of cyber threats, phishing remains a persistent danger. Safe Link takes a proactive stance against phishing attempts with cutting-edge detection technology. Utilizing machine learning algorithms and real-time analysis, we identify and thwart phishing attacks, protecting our users from falling victim to deceptive websites. Safe Link actively monitors web activities, ensuring a vigilant defense against the latest phishing threats.</p>
+                </p>
+
+                <div class="button-container">
+                    <!-- Button for subdomain link -->
+                    <form action="/subdomain-check" method="post">
+                        <button class="button" type="submit">TRY NOW</button>
+                    </form>
+            
+                    <!-- Button for phishing checking link
+                    <form action="/phishing-check" method="post">
+                        <button class="button" type="submit">Phishing Check</button>
+                    </form> -->
+                </div>
+            </div>
+            </div>
+            <div class="section-content">
+                <div class="service-part">
+                    <div class="service-icon"><img src="https://cdn0.iconfinder.com/data/icons/computer-219/24/Hyperlink_Chain_Connective_Link_Unite_Url-11-64.png "  width="60px" >  <img src="https://cdn0.iconfinder.com/data/icons/security-awareness/64/sq455_see_results_analytics_statistics_reporting_stats_phishing_computer-256.png"  width="60px" >
+                    </div>
+                    <div class="service-innertitle"> <h1>
+                        Integrated Checking</h1></div>
+                <p>
+                  In the ever-evolving landscape of cyber threats, phishing remains a persistent danger. Safe Link takes a proactive stance against phishing attempts with cutting-edge detection technology.
+                   Utilizing machine learning algorithms and real-time analysis,
+                   here we generate active multiple link from a single link with the help of Domain lisiting  and then passed in for Phishing Detction to identify and thwart phishing attacks, protecting our users from falling victim to deceptive websites. Safe Link actively monitors web activities.</p>
+                
+                <div class="button-container">
+                    <!-- Button for subdomain link
+                    <form action="/subdomain-check" method="post">
+                        <button class="button" type="submit">TRY NOW</button>
+                    </form> -->
+            
+                    <!-- Button for phishing checking link -->
+                    <form action="/phishing-check" method="post">
+                        <button class="button" type="submit">TRY NOW</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+    </section>
+
+    <section id="team">
+        <div class="section-title">
+            TEAM
+             </div>
+            <div class="team-grid">
+                
+               
+                   
+                    <div class="team-part">
+               <span class="team-detail"> <span><img src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-512.png"  width="100px" > </span><span class="team-member-name">Heet Patel
+                        <div class="team-member-post">Chief Executive Officer </div></span></span>
+                    <p class="team-border"> 
+                        Explicabo voluptatem mollitia et repellat qui dolorum quasi
+                    </p>
+                </div>
+                                
+                 <div class="team-part">
+               <span class="team-detail"> <span><img src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-512.png"  width="100px" > </span><span class="team-member-name">Jill Patel
+                        <div class="team-member-post">Chief Executive Officer </div></span></span>
+                    <p class="team-border"> 
+                        Explicabo voluptatem mollitia et repellat qui dolorum quasi
+                    </p>
+                </div>
+                <div class="team-part">
+                    <span class="team-detail"> <span><img src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-512.png"  width="100px" > </span><span class="team-member-name">Shivam 
+                             <div class="team-member-post">Chief Executive Officer </div></span></span>
+                         <p class="team-border"> 
+                             Explicabo voluptatem mollitia et repellat qui dolorum quasi
+                         </p>
+                     </div>       
+                               <div class="team-part">
+                        <span class="team-detail"> <span><img src="https://cdn3.iconfinder.com/data/icons/leto-user-group/64/__user_person_profile-512.png"  width="100px" > </span><span class="team-member-name">Smeet Patel
+                                 <div class="team-member-post">Chief Executive Officer </div></span></span>
+                             <p class="team-border"> 
+                                 Explicabo voluptatem mollitia et repellat qui dolorum quasi
+                             </p>
+                         </div>
+                </div>
+
+                </div>
+
+            </div>
+    </section>
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <p>You need to login to access this service. Click below to login.</p>
+     <a href="/login"> <button class="button" onclick="redirectToLogin()" >SIGN-IN</button></a>   
+      {% comment %} <button onclick="redirectToLogin()">Login</button> {% endcomment %}
+        </div>
+    </div>
+    <!-- <section id="pricing">
+        <h2>Pricing</h2>
+        <p>Details about your pricing plans.</p>
+    </section> -->
+
+    <!-- Add other sections as needed -->
+
+    <footer>
+        <p>&copy; 2024 SAF3LINK G-33 Ganpat University. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.onscroll = function() { scrollFunction() };
+
+        function scrollFunction() {
+            var header = document.getElementById("mainHeader");
+
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                header.style.backgroundColor = "rgba(55, 81, 126, 0.8)";
+            } else {
+                header.style.backgroundColor = "#37517e";
+            }
+        }
+        window.onscroll = function() { scrollFunction() };
+        document.addEventListener("DOMContentLoaded", function () {
+            var links = document.querySelectorAll('nav a');
+
+            links.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    links.forEach(function(innerLink) {
+                        innerLink.classList.remove('active');
+                    });
+                    link.classList.add('active');
+                });
+            });
+        });
+        function scrollFunction() {
+            var header = document.getElementById("mainHeader");
+
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                header.style.backgroundColor = "rgba(55, 81, 126, 0.8)";
+            } else {
+                header.style.backgroundColor = "#37517e";
+            }
+        }
+        function displayPopup() {
+            var popup = document.getElementById("loginPopup");
+            popup.style.display = "block";
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            var popup = document.getElementById("loginPopup");
+            popup.style.display = "none";
+        }
+
+        // Function to redirect to the login page
+        function redirectToLogin() {
+            // Change 'login.html' to the actual URL of your login page
+            window.location.href = '/login';
+        }
+
+        // Add this to your existing JavaScript code to show the popup when a service is clicked
+        document.addEventListener("DOMContentLoaded", function () {
+            var serviceButtons = document.querySelectorAll('#services .button');
+
+            serviceButtons.forEach(function(button) {
+                button.addEventListener('click', function(event) {
+                    // Check if user is logged in
+                    var isLoggedIn = false; // Replace this with your actual logic to check if the user is logged in
+                    if (!isLoggedIn) {
+                        event.preventDefault(); // Prevent the default action of the button click
+                        displayPopup(); // Display the popup
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+</html>

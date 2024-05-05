@@ -1,0 +1,608 @@
+<!-- profile.html -->
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+    <style>
+        /* style.css */
+
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    }
+
+.header {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-top:30px;
+    background-color:#37517e;
+    display: flex;
+    justify-content: space-between;
+    font-size: 35px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    height: 15vh;
+    letter-spacing: 2px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 25vh;
+    left: 2%;
+    border-radius: 10px;
+    width: 300px;
+    padding:10px;
+    height: 71%;
+    background-color: #f0f0f0;  
+}
+
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 170px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: flex;
+    font-size:17px; 
+    align-items: center;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown .dropdown-toggle {
+    cursor: pointer;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+
+#container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    padding-bottom:30px;
+    padding-top:20px;
+    height:570px;
+    justify-content: space-evenly;
+    padding-left: 380px;
+}
+#left {
+
+/* Adjust as needed */
+    min-width: 60%; /* Ensures the div doesn't exceed container width */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevents wrapping of list items */
+    background-color:#f3f5fa;
+    color:#444444 ;
+    border-radius:10px;
+    box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.2);  
+ 
+}
+#right {
+    width: 60%; /* Adjust as needed */
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #37517e;
+}
+
+.header {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-top:30px;
+    background-color:#37517e;
+    display: flex;
+    justify-content: space-between;
+    font-size: 35px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    height: 15vh;
+    letter-spacing: 2px;
+   
+}
+
+.footer {
+    width: 100%;
+    padding: 20px;
+    height: 80px;
+    height: 15vh;
+    background-color: #37517e;
+    color: #fff;
+    font-weight: 300;
+    font-size: 20px;
+    text-align: center;
+    position: sticky;
+    bottom: 0%;
+}
+
+.container {
+    position: relative;
+    padding: 75px;
+    background-color: #37517e;
+    width: 100%;
+    height: 70vh;
+
+}
+
+.cont {
+    position: relative;
+    font-weight: 600;
+    font-size: 18px;
+    height: 50vh;
+    justify-content: center;
+    padding: 30px;
+    background-color: #fff;
+    text-align: center;
+    width: 40%;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.text1 {
+    margin-bottom: 20px;
+    font-weight: 500;
+
+    
+}
+
+label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    font-size: 20px;
+    background-color: #47b2e4;
+    color: #fff;
+    border: none;
+    border-radius: 56px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #255580;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 170px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: flex;
+    font-size:17px; 
+    align-items: center;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown .dropdown-toggle {
+    cursor: pointer;
+    font-size: 20px;
+    text-transform: capitalize;
+}
+.right-1{padding-left:60px;}
+.title{color:#fff;}
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tr:hover {
+    background-color: #f2f2f2;
+}
+footer {
+    background-color: #37517e;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+.container1{
+    display: flex;
+    justify-content: center;
+}
+input[type="text"] {
+    width: 47%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.btn1{
+    width: 9%;
+    
+    font-size: 15px;
+    background-color: #47b2e4;
+    color: #fff;
+    border: none;
+    border-radius: 56px;
+    cursor: pointer;
+}
+.table-info{width: 100%;height:30px;    box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);}
+.tabel-info th, td {
+    padding: 6px;
+    text-align: left;
+    background-color :#f0f0f0;
+    border-bottom: 1px solid #ddd;
+}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span>SAF3LINK</span>
+        <div class="dropdown">
+            <span class="dropdown-toggle">{{request.user}} <i class='bx bx-caret-down'></i></span> <!-- Boxicons Caret Down Icon -->
+            <div class="dropdown-content">
+                <a href="#"><i class='bx bx-user'></i> My Profile</a> <!-- Boxicons User Icon -->
+                <a href="{% url 'logout' %}"><i class='bx bx-log-out'></i> Logout</a> <!-- Boxicons Log Out Icon -->
+                <a href="#" id="download-report"><i class='bx bx-download'></i> Download Report</a> <!-- Add this line -->
+    
+                <a href="{% url 'url_checker' %}"><i class='bx bx-arrow-back'></i>Back</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="sidebar">
+        <img src="{% static 'images/avatar.png' %}" alt="User Logo" style="text-align-center;width: 280px; height: 160px; margin-bottom: 5px;align-items:centre">
+        <h2 style="text-align:center; text-transform: capitalize; "> {{ user.username }}</h2>
+        
+        <!-- Profile section table -->
+        <table class="table-info">
+            <tr class="table-tr">
+                <td><strong>Email:</strong></td>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <td><strong>Date Joined:</strong></td>
+                <td>{{ user.date_joined|date:"D, d M Y" }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Count:</strong></td>
+                <td>{{ integrated_checking_urls_count }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Phished:</strong></td>
+                <td>{{ phished }}</td>
+            </tr>
+            <tr>
+                <td><strong>Total Safe:</strong></td>
+                <td>{{ safe }}</td>
+            </tr>
+            <tr>
+                <td><strong>Last Login:</strong></td>
+                <td>{{ last_login }}</td>
+            </tr>
+        </table>
+    </div>
+    
+<!-- Add the search bar -->
+
+    <form method="GET">
+        <div class="container1">
+        
+        <input type="date" name="date" id="date" style="padding: 8px 12px; border-radius: 5px;margin-right:55px;margin-left:90px;">
+        <input type="text" name="search" placeholder="Search Any URL" style="padding: 8px 12px; border-radius: 5px;margin-right:30px">
+        <button type="submit" class= "btn1" style="margin-right:30px;" >Search</button>
+        <button class= "btn1" href="{% url 'profile' %}">Cancel</button>
+    </div>
+    </form>
+
+ 
+    <br>
+    <div id="container">
+        <!-- Left section for displaying links -->
+        <div id="left">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="margin-left: 20px;"><h2>History
+                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+                            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
+                            &nbsp &nbsp {%if date_filter%}
+                            {{date_filter}}
+                            {% endif%}
+                        </h2></th>                    
+                    </tr>
+                    </thead>
+                <tbody>
+                {%if user_logs%}
+                    {% for log in user_logs %}
+                    <tr class="user-log">
+                        <td colspan="2">
+                            
+                            {% if log.phish_url %}
+                            <p><strong>Phishing URL:</strong> <a href="{{ log.phish_url }}">{{ log.phish_url }}</a></p>
+                            <p><strong>Phishing Result:</strong> {{ log.phish_result }}</p>
+                            {% endif %}
+                            {% if log.onion_url %}
+                            <p><strong>Onion URL:</strong> <a href="{{ log.onion_url }}">{{ log.onion_url }}</a></p>
+                            <p><strong>Onion Result:</strong> {{ log.onion_result }}</p>
+                            {% endif %}
+                            {% if log.url %}
+                            <p><strong>URL:</strong> <a href="{{ log.url }}">{{ log.url }}</a></p>
+                            <p><strong>Result:</strong> {{ log.result }}</p>
+                            {% endif %}
+                            {% if log.action != 'Login'%}
+                            <p><strong>Created At:</strong> {{ log.created_at }}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {%else%}
+                    <tr>
+                        <td colspan="2"><h2 style="text-align:center">No Data Found</h2></td>
+                    </tr>
+                    {%endif%}
+                </tbody>
+            </table>
+        </div>
+        
+        
+        <!-- Right section for displaying charts -->
+        <div id="right">
+            
+            <div class="right-1">
+            <!-- Display the pie chart -->
+            
+            <h2 class="title" >Total URL Count</h2>
+            <br>    <canvas id="pieChart" width="360" height="180" ></canvas>
+            <br><br>
+            {%if date_filter%}
+            <!-- Display the bar chart -->
+            <h2 class="title">For Searched Links </h2><br>
+            <canvas id="barChart" width="360" height="180"></canvas>
+            {%endif%}   
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pie chart data
+            var pieLabels = ['Safe ', 'Phished']; // Labels for the pie chart
+            var pieCounts = [
+                {{ safe }}, // Total count of safe URLs
+                {{ phished }}, // Total count of phished URLs
+                 // Total count - (safe + phished) gives the count of unchecked URLs
+            ];
+            
+            var pieCtx = document.getElementById('pieChart').getContext('2d');
+            var pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: pieLabels,
+                    datasets: [{
+                        label: 'Link Classification',
+                        data: pieCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Blue color for Safe
+                            'rgba(255, 99, 132, 0.2)', // Red color for Phishing
+                             // Yellow color for Unchecked
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false, // Disable responsiveness
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    
+            // Bar chart data
+            var barLabels = ['Safe', 'Phishing']; // Labels for the bar chart
+            var barCounts = [
+                {{ safe_search_count }}, // Total count of safe URLs for the search query
+                {{ phished_search_count }}, // Total count of phished URLs for the search query
+            ];
+            
+            var barCtx = document.getElementById('barChart').getContext('2d');
+            var barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: barLabels,
+                    datasets: [{
+                        label: 'Link Classification',
+                        data: barCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Blue color for Safe
+                            'rgba(255, 99, 132, 0.2)', // Red color for Phishing
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFF'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFF'
+                            }
+                        }
+                    },
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            titleColor: '#000',
+                            bodyColor: '#000',
+                            backgroundColor: '#fff'
+                        }
+                    }
+                }
+            });
+    </script>
+    
+    <script>
+        // JavaScript for dropdown functionality
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var dropdowns = document.getElementsByClassName("dropdown");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var dropdown = dropdowns[i];
+                dropdown.addEventListener("mouseenter", function() {
+                    this.getElementsByClassName("dropdown-content")[0].style.display = "block";
+                });
+                dropdown.addEventListener("mouseleave", function() {
+                    this.getElementsByClassName("dropdown-content")[0].style.display = "none";
+                });
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Download report button
+            var downloadReportButton = document.getElementById('download-report');
+            downloadReportButton.addEventListener('click', function() {
+                // Get the content of the HTML document
+                var htmlContent = document.documentElement.outerHTML;
+                
+                // Create a blob containing the HTML content
+                var blob = new Blob([htmlContent], { type: 'text/html' });
+                
+                // Create a temporary anchor element
+                var anchor = document.createElement('a');
+                anchor.href = URL.createObjectURL(blob);
+                anchor.download = 'report.html'; // Set the filename for the downloaded file
+                anchor.click();
+            });
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Download report button
+        var downloadReportButton = document.getElementById('download-report');
+        downloadReportButton.addEventListener('click', function() {
+            // Create a new jsPDF instance
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // Get the content of the HTML document
+            const htmlContent = document.documentElement.outerHTML;
+
+            // Add a page to the PDF
+            pdf.addPage();
+
+            // Convert HTML to a PDF page
+            pdf.fromHTML(
+                htmlContent,
+                15, // x-coordinate
+                15, // y-coordinate
+                {
+                    'width': 180,
+                    'elementHandlers': {
+                        '#editor': function (element, renderer) {
+                            return true;
+                        }
+                    }
+                }
+            );
+
+            // Save the PDF as a file
+            pdf.save('report.pdf');
+        });
+    });
+</script>
+</body>
+</html>

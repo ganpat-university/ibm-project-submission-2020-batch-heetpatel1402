@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{%load static%}
+
+{% block content %}
+
+
+<style>
+    form{
+        width: 500px;
+        padding: 87px 20px 20px 20px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        margin: 50px auto;
+        border-radius: 10px;
+    }
+    form p{
+        text-align: center;
+    }
+
+    form h3{
+        text-align: center
+    }
+</style>
+
+ 
+
+                 
+                    <h2 style="text-align:center">OTP Verification</h2>
+<!-- Main css -->
+
+    <form action="" method='POST'>   
+        {% csrf_token %}
+        <h3><strong>Verify Email</strong></h3>
+       
+            <input class="form-control" name="otp_code" placeholder="Enter OTP">
+        
+
+          <button class="form-submit" style="width:100%">Activate Account</button>
+          <p>Need a new OTP? <a href="{% url 'resend-otp' %}">Resend OTP</a></p>
+      
+    </form>
+
+{% endblock content %}
+    

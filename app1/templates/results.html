@@ -1,0 +1,589 @@
+<!-- results.html -->
+<!-- results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Define styles for container, left, and right divs */
+        #container {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            padding-bottom:30px;
+            padding-top:20px;
+            height:570px;
+            justify-content: space-evenly;
+            padding-left: 100px;
+        }
+        #left {
+
+     /* Adjust as needed */
+            min-width: 58%; /* Ensures the div doesn't exceed container width */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            white-space: nowrap; /* Prevents wrapping of list items */
+            background-color:#f3f5fa;
+            color:#444444 ;
+            border-radius:10px;
+            box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.2);  
+         
+        }
+        #right {
+            width: 60%; /* Adjust as needed */
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #37517e;
+        }
+
+        .header {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 70px;
+            padding-top:30px;
+            background-color:#37517e;
+            display: flex;
+            justify-content: space-between;
+            font-size: 35px;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            height: 15vh;
+            letter-spacing: 2px;
+           
+        }
+
+        .footer {
+            width: 100%;
+            padding: 20px;
+            height: 80px;
+            height: 15vh;
+            background-color: #37517e;
+            color: #fff;
+            font-weight: 300;
+            font-size: 20px;
+            text-align: center;
+            position: sticky;
+            bottom: 0%;
+        }
+
+        .container {
+            position: relative;
+            padding: 75px;
+            background-color: #37517e;
+            width: 100%;
+            height: 70vh;
+
+        }
+
+        .cont {
+            position: relative;
+            font-weight: 600;
+            font-size: 18px;
+            height: 50vh;
+            justify-content: center;
+            padding: 30px;
+            background-color: #fff;
+            text-align: center;
+            width: 40%;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .text1 {
+            margin-bottom: 20px;
+            font-weight: 500;
+
+            
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #47b2e4;
+            color: #fff;
+            border: none;
+            border-radius: 56px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #255580;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 170px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: flex;
+            font-size:17px; 
+            align-items: center;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown .dropdown-toggle {
+            cursor: pointer;
+            font-size: 20px;
+            text-transform: capitalize;
+        }
+        .right-1{padding-left:60px;}
+        .title{color:#fff}
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+        footer {
+            background-color: #37517e;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>    
+    <div class="header">
+    <span>SAF3LINK</span>
+    <div class="dropdown">
+        <span class="dropdown-toggle">{{request.user}} <i class='bx bx-caret-down'></i></span> <!-- Boxicons Caret Down Icon -->
+        <div class="dropdown-content">
+            <a href="#"><i class='bx bx-user'></i> My Profile</a> <!-- Boxicons User Icon -->
+            <a href="{% url 'logout' %}"><i class='bx bx-log-out'></i> Logout</a> <!-- Boxicons Log Out Icon -->
+            <a href="#" id="download-report"><i class='bx bx-download'></i> Download Report</a> <!-- Add this line -->
+
+            <a href="{% url 'url_checker' %}"><i class='bx bx-arrow-back'></i>Back</a>
+        </div>
+    </div>
+</div>
+  
+
+    <!-- Container div with left and right sections -->
+    <div id="container">
+        <!-- Left section for displaying links -->
+        <div id="left">
+        
+            <table>
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan=2><h3 style="text-align:center">Total Links Generated: {{ total }}</h3></td>
+                    </tr>
+                    {% for url in urls %}
+                        <tr>
+                            <td>{{ url.url }}</td>
+                            <td>{{ url.result }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+        
+        <!-- Right section for displaying charts -->
+        <div id="right">
+            
+            <div class="right-1">
+            <!-- Display the pie chart -->
+            <h2 class="title">Pie Chart: Links Classification</h2><br>
+            <canvas id="pieChart" width="200" height="200"></canvas>
+            <br><br>
+            <!-- Display the bar chart -->
+            <h2 class="title">Bar Chart: Links Classification</h2><br>
+            <canvas id="barChart" width="400" height="200"></canvas>
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SAF3LINK G-33 Ganpat University. All rights reserved.</p>
+    </footer>
+    <!-- JavaScript to generate the charts -->
+    {% comment %} <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pie chart data
+            var pieLabels = {{ labels|safe }};
+            var pieCounts = {{ counts|safe }};
+            
+            var pieCtx = document.getElementById('pieChart').getContext('2d');
+            var pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: pieLabels,
+                    datasets: [{
+                        label: 'Link Classification',
+                        data: pieCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Blue color for Safe
+                            'rgba(255, 99, 132, 0.2)', // Red color for Phishing
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false, // Disable responsiveness
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Bar chart data
+            var barLabels = {{ labels|safe }};
+            var barCounts = {{ counts|safe }};
+            
+            var barCtx = document.getElementById('barChart').getContext('2d');
+            var barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: barLabels, // Use the same labels for bar chart
+                    datasets: [{
+                        label: 'Link Classification',
+                        data: barCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Blue color for Safe
+                            'rgba(255, 99, 132, 0.2)', // Red color for Phishing
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    responsive: false, // Disable responsiveness
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend
+                        }
+                    }
+                }
+            });
+        });
+    </script> {% endcomment %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pie chart data
+            var pieLabels = {{ labels|safe }};
+            var pieCounts = {{ counts|safe }};
+            
+            var pieCtx = document.getElementById('pieChart').getContext('2d');
+            var pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: pieLabels,
+                    datasets: [{
+                        label: 'Link Classification',
+                        data: pieCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Blue color for Safe
+                            'rgba(255, 99, 132, 0.2)', // Red color for Phishing
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: false, // Disable responsiveness
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'white'
+                            }
+                        }
+                    }
+                }
+            });
+    
+            // Bar chart data
+            var barLabels = {{ labels|safe }};
+            var barCounts = {{ counts|safe }};
+            
+            var barCtx = document.getElementById('barChart').getContext('2d');
+            var barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: barLabels, // Use the same labels for bar chart
+                    datasets: [{
+                        label: 'Link Classification',
+                        data: barCounts,
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.2)', // Blue color for Safe
+                            'rgba(255, 99, 132, 0.2)', // Red color for Phishing
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#FFF'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#FFF'
+                            }
+                        }
+                    },
+                    responsive: false, // Disable responsiveness
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false // Hide legend
+                        },
+                        tooltip: {
+                            titleColor: '#000',
+                            bodyColor: '#000',
+                            backgroundColor: '#fff' // Set background color of the tooltip table to white
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        // JavaScript for dropdown functionality
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var dropdowns = document.getElementsByClassName("dropdown");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var dropdown = dropdowns[i];
+                dropdown.addEventListener("mouseenter", function() {
+                    this.getElementsByClassName("dropdown-content")[0].style.display = "block";
+                });
+                dropdown.addEventListener("mouseleave", function() {
+                    this.getElementsByClassName("dropdown-content")[0].style.display = "none";
+                });
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Download report button
+            var downloadReportButton = document.getElementById('download-report');
+            downloadReportButton.addEventListener('click', function() {
+                // Get the content of the HTML document
+                var htmlContent = document.documentElement.outerHTML;
+                
+                // Create a blob containing the HTML content
+                var blob = new Blob([htmlContent], { type: 'text/html' });
+                
+                // Create a temporary anchor element
+                var anchor = document.createElement('a');
+                anchor.href = URL.createObjectURL(blob);
+                anchor.download = 'report.html'; // Set the filename for the downloaded file
+                anchor.click();
+            });
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Download report button
+        var downloadReportButton = document.getElementById('download-report');
+        downloadReportButton.addEventListener('click', function() {
+            // Create a new jsPDF instance
+            const pdf = new jsPDF('p', 'mm', 'a4');
+
+            // Get the content of the HTML document
+            const htmlContent = document.documentElement.outerHTML;
+
+            // Add a page to the PDF
+            pdf.addPage();
+
+            // Convert HTML to a PDF page
+            pdf.fromHTML(
+                htmlContent,
+                15, // x-coordinate
+                15, // y-coordinate
+                {
+                    'width': 180,
+                    'elementHandlers': {
+                        '#editor': function (element, renderer) {
+                            return true;
+                        }
+                    }
+                }
+            );
+
+            // Save the PDF as a file
+            pdf.save('report.pdf');
+        });
+    });
+</script>
+    
+</body>
+</html>
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Results</h1>
+    
+    <!-- Display the pie chart -->
+    <h2>Links Classification</h2>
+    <canvas id="pieChart"></canvas>
+    
+    <!-- Display the links with their results -->
+    <h2>Links:</h2>
+    <ul>
+        {% for url in urls %}
+            <li>{{ url.url }} - {{ url.result }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- JavaScript to generate the pie chart -->
+    <script>
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: {{ labels|safe }},
+                datasets: [{
+                    label: 'Link Classification',
+                    data: {{ counts|safe }},
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+</html> {% endcomment %}
+
+{% comment %} <!-- results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Results</h1>
+    
+    <!-- Display the pie chart -->
+    <h2>Links Classification</h2>
+    <img src="{{ pie_chart_path }}" alt="Pie Chart">
+    
+    <!-- Display the links with their results -->
+    <h2>Links:</h2>
+    <ul>
+        {% for url in urls %}
+            <li>{{ url.url }} - {{ url.result }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html> {% endcomment %}
+
+{% comment %} <ul>
+    {% for url in urls %}
+    <li>{{ url.url }} - {{ url.result }}</li>
+    {% endfor %}
+</ul> {% endcomment %}

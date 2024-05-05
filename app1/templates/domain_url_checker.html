@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Input Form</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        .header {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 70px;
+            padding-top:30px;
+            background-color:#37517e;
+            display: flex;
+            justify-content: space-between;
+            font-size: 35px;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            height: 15vh;
+            letter-spacing: 2px;
+           
+        }
+
+        .footer {
+            width: 100%;
+            padding: 20px;
+            height: 80px;
+            height: 15vh;
+            background-color: #37517e;
+            color: #fff;
+            font-weight: 300;
+            font-size: 20px;
+            text-align: center;
+            position: sticky;
+            bottom: 0%;
+        }
+
+        .container {
+            position: relative;
+            padding: 75px;
+            background-color: #37517e;
+            width: 100%;
+            height: 70vh;
+
+        }
+
+        .cont {
+            position: relative;
+            font-weight: 600;
+            font-size: 18px;
+            height: 50vh;
+            justify-content: center;
+            padding: 30px;
+            background-color: #fff;
+            text-align: center;
+            width: 40%;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .text1 {
+            margin-bottom: 20px;
+            font-weight: 500;
+
+            
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #47b2e4;
+            color: #fff;
+            border: none;
+            border-radius: 56px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #255580;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 170px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: flex;
+            font-size:17px; 
+            align-items: center;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown .dropdown-toggle {
+            cursor: pointer;
+            font-size: 20px;
+            text-transform: capitalize;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #47b2e4;
+            color: #fff;
+            border: none;
+            border-radius: 56px;
+            cursor: pointer;
+        }   
+        input[type="button"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            background-color: #47b2e4;
+            color: #fff;
+            border: none;
+            border-radius: 56px;
+            cursor: pointer;
+        }
+        .but{display:flex;justify-content:space-evenly}
+        .but-des{width:150px ;padding:3px}
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <span>SAF3LINK</span>
+        <div class="dropdown">
+            <span class="dropdown-toggle">{{request.user}} <i class='bx bx-caret-down'></i></span> <!-- Boxicons Caret Down Icon -->
+            <div class="dropdown-content">
+                <a href="#"><i class='bx bx-user'></i> My Profile</a> <!-- Boxicons User Icon -->
+                <a href="{% url 'logout' %}"><i class='bx bx-log-out'></i> Logout</a> <!-- Boxicons Log Out Icon -->
+                <a href="{% url 'user' %}"><i class='bx bx-arrow-back'></i>Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="cont">
+            <form method="post" action="{% url 'process_url' %}">
+                {% csrf_token %}
+                <br>
+                <h1>Link Enumeration</h1>
+                <br>
+                <div class="text1">
+                    <br>
+                    <input type="text" id="url" name="url" required placeholder="Enter the url you want to search">
+                </div>
+                
+                <span class="but"> <div class="but-des"><input type="submit" value="Submit"></div>  <div class="but-des"><a href="{% url 'user' %}"><input type="button" value="Back"></a> </div> </span>
+                <br>
+                <br>
+                <h5>This will take a few moments</h5>
+                <br>
+             
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <br>&copy; 2024 SAF3LINK G-33 Ganpat University. All rights reserved.</div>
+        {% comment %} <script>
+            function startTimer() {
+                // Get the current time when the form is submitted
+                var startTime = new Date().getTime();
+                
+                // Display loading text and disable submit button
+                document.getElementById("loadingText").style.display = "block";
+                document.getElementById("submitButton").disabled = true;
+                
+                // Check every 100 milliseconds if the result page has loaded
+                var timer = setInterval(function() {
+                    // Check if the result page has loaded by checking the URL
+                    if (window.location.href.includes("domain_result")) {
+                        // Calculate the time taken
+                        var endTime = new Date().getTime();
+                        var timeTaken = (endTime - startTime) / 1000; // Convert to seconds
+                        alert("Time taken: " + timeTaken + " seconds");
+                        
+                        // Clear the interval
+                        clearInterval(timer);
+                    }
+                }, 100);
+            }
+        </script> {% endcomment %}
+        <script>
+            // JavaScript for dropdown functionality
+            document.addEventListener("DOMContentLoaded", function(event) {
+                var dropdowns = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var dropdown = dropdowns[i];
+                    dropdown.addEventListener("mouseenter", function() {
+                        this.getElementsByClassName("dropdown-content")[0].style.display = "block";
+                    });
+                    dropdown.addEventListener("mouseleave", function() {
+                        this.getElementsByClassName("dropdown-content")[0].style.display = "none";
+                    });
+                }
+            });
+        </script>
+</body>
+</html>
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Form</title>
+</head>
+<body>
+    <h1>URL Form</h1>
+    <form method="post" action="{% url 'process_url' %}">
+        {% csrf_token %}
+        <label for="url">Enter URL:</label><br>
+        <input type="text" id="url" name="url"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html> {% endcomment %}
