@@ -1,53 +1,49 @@
-name: Django Tests
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main  # Run tests on pushes to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Run tests on pull requests to the main branch
+      - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
-    services:
-      db:
-        image: postgres:13  # Use PostgreSQL for the database
-        env:
-          POSTGRES_DB: test_db
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U $${POSTGRES_USER}" 
-          --health-interval 10s 
-          --health-timeout 5s 
-          --health-retries 5
-
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3  # Updated to v3
+      # Step 1: Checkout code (Updated to actions/checkout@v4)
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v4  # Updated to v4
-      with:
-        python-version: '3.9'
+      # Step 2: Set up Python (Updated to actions/setup-python@v5)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      # Step 3: Set up Node.js (If applicable to your project)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Set up Database
-      env:
-        DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
-      run: |
-        python manage.py migrate  # Apply migrations
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # Add any other dependency installation if needed
+          
+      # Step 5: Run tests (Make sure the test command matches your project)
+      - name: Run tests
+        run: |
+          python -m unittest discover tests/
+          # Or use pytest or another test runner if applicable
 
-    - name: Run Tests
-      env:
-        DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
-      run: python manage.py test app1.tests
+      # Step 6: Deploy or additional steps (if any)
+      # - name: Deploy code
+      #   run: |
+      #     ./deploy_script.sh
+
